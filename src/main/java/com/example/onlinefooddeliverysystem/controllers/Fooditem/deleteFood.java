@@ -17,6 +17,6 @@ public class deleteFood extends HttpServlet {
 
         FoodManager.remove(id);
 
-        response.sendRedirect("Pages/FoodItem/admin-admin-admin-admin-view.jsp");
+        response.sendRedirect("pages/food-item/admin-view.jsp");
     }
 }

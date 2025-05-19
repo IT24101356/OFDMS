@@ -21,7 +21,7 @@ public class updateFood extends HttpServlet {
 
             FoodManager.update(id, description, name, price, category,imagePath);
 
-            response.sendRedirect("pages/FoodItem/admin-admin-admin-admin-view.jsp");
+            response.sendRedirect("pages/food-item/admin-view.jsp");
 
     }
 }

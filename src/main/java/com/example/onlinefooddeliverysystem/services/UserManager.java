@@ -16,7 +16,7 @@ public class UserManager {
         users = new ArrayList<>();
 
         // Add a default admin user
-        users.add(new User(0, "user", 10, "password", "user@gmail.com"));
+        users.add(new User(0, "user", 10, "123", "user@gmail.com"));
 
         String[] usersDataArr = fileHandler.readFromFile(fileName);
         int userID = 0;

@@ -5,18 +5,18 @@ public class Driver {
     protected String name;
     protected int age;
 
-    //default constructer
+    // default constructor
     public Driver() {
     }
-//    parmaeterized constrcuter
 
+    // parameterized constructor
     public Driver(int ID, String name, int age) {
         this.ID = ID;
         this.name = name;
         this.age = age;
     }
 
-//    implmenting the getters
+    // implementing the getters
 
     public int getID() {
         return ID;
@@ -30,7 +30,7 @@ public class Driver {
         return age;
     }
 
-//    implemnting the setters
+    // implementing the setters
 
 
     public void setID(int ID) {
@@ -44,8 +44,8 @@ public class Driver {
     public void setAge(int age) {
         this.age = age;
     }
-//    implementing get details method
+    // implementing get details method
     public String getDetails(){
-        return ID+","+name+","+age;
+        return ID+","+name+","+age+"\n";
     }
 }

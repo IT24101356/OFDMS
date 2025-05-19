@@ -14,7 +14,7 @@ public class AdminManager {
 
         admins = new ArrayList<>();
 
-        admins.add(new Admin(0, "admin", 20, "Admin@gmail.com", "password"));
+        admins.add(new Admin(0, "admin", 20, "admin@gmail.com", "123"));
 
         String[] adminsDataArr = fileHandler.readFromFile(fileName);
         int adminID = 0;
@@ -33,6 +33,7 @@ public class AdminManager {
         }
 
         ID = adminID;
+        System.out.println("Admin Count: " + admins.size());
     }
 
     public static Admin findAdmin(int id) {

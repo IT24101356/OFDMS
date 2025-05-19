@@ -54,11 +54,11 @@
                     <button type="submit" class="mt-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
                         Order
                     </button>
-
                 </form>
+
                 <form action="<%=request.getContextPath()%>/pages/food-item/food-profile.jsp" method="get">
                     <input type="hidden" value="<%=food.getID()%>" name="foodID">
-                    <input type="submit" value="More Details">
+                    <input type="submit" value="More Details" class="mt-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md">
                 </form>
 
             </div>

@@ -11,7 +11,6 @@
 </head>
 <body class="bg-gray-900 text-white min-h-screen">
 
-
 <nav class="flex justify-between items-center p-6 bg-gray-800">
     <!-- Title -->
     <div class="flex items-center">
@@ -19,11 +18,10 @@
     </div>
 
     <!-- Navigation Links -->
-    <div class="space-x-4">
-
+    <div class="flex items-center space-x-4">
         <a href="<%=request.getContextPath()%>/pages/driver/admin-view.jsp" class="text-white hover:text-blue-400">Driver Management</a>
         <a href="<%=request.getContextPath()%>/pages/user/admin-view.jsp" class="text-white hover:text-blue-400">User Management</a>
-        <a href="<%=request.getContextPath()%>/pages/food-item/AddFood.jsp" class="text-white hover:text-blue-400">Add Food Item</a>
+        <a href="<%=request.getContextPath()%>/pages/food-item/add-food.jsp" class="text-white hover:text-blue-400">Add Food Item</a>
         <a href="<%=request.getContextPath()%>/pages/food-item/admin-view.jsp" class="text-white hover:text-blue-400">View Food Items</a>
         <a href="<%=request.getContextPath()%>/pages/order/pending-order-admin.jsp" class="text-white hover:text-blue-400">Pending Orders</a>
         <a href="<%=request.getContextPath()%>/pages/order/confirmed-order-admin.jsp" class="text-white hover:text-blue-400">Confirmed Orders</a>
@@ -33,11 +31,10 @@
            class="ml-4 px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">
             Signup
         </a>
-        <a href="<%=request.getContextPath()%>/admin-logout"
-           class="ml-4 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">
-            Logout
-        </a>
-
+        <form action="<%=request.getContextPath()%>/admin-logout" method="POST" class="inline"
+              onsubmit="return confirm('Are you sure you want to logout ?');">
+            <input type="submit" value="Logout" class="ml-4 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 cursor-pointer">
+        </form>
     </div>
 </nav>
 
@@ -66,22 +63,22 @@
             <!-- Sample admin row — repeat with backend data -->
             <tr class="border-b border-gray-700">
 
-                <form action="updateAdmin" method="POST">
+                <form action="<%=request.getContextPath()%>/update-admin" method="POST">
                     <td class="p-2">
                         <input type="hidden" name="id" value="<%=admin.getID()%>" />
-                        1
+                        <%=admin.getID()%>
                     </td>
-                    <td class="p-2"><input name="name" value="<%=admin.getName()%>" class="bg-gray-700 p-1 rounded text-white w-full"/></td>
-                    <td class="p-2"><input name="age" type="number" value="<%=admin.getAge()%>" class="bg-gray-700 p-1 rounded text-white w-full"/></td>
-                    <td class="p-2"><input name="mail" value="<%=admin.getMail()%>" class="bg-gray-700 p-1 rounded text-white w-full"/></td>
+                    <td class="p-2"><input name="name" value="<%=admin.getName()%>" class="bg-gray-700 p-1 rounded text-white w-full" <%=(admin.getID()==0)? "readonly":""%>/></td>
+                    <td class="p-2"><input name="age" type="number" value="<%=admin.getAge()%>" class="bg-gray-700 p-1 rounded text-white w-full" <%=(admin.getID()==0)? "readonly":""%>/></td>
+                    <td class="p-2"><input name="mail" value="<%=admin.getMail()%>" class="bg-gray-700 p-1 rounded text-white w-full" <%=(admin.getID()==0)? "readonly":""%>/></td>
                     <td class="p-2 flex gap-2">
                         <input name="password" type="hidden" value="<%=admin.getPassword()%>" />
-                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded">Update</button>
+                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded" <%=(admin.getID()==0)? "disabled":""%>>Update</button>
                 </form>
 
-                <form action="removeAdmin" method="POST" onsubmit="return confirm('Are you sure?');">
+                <form action="<%=request.getContextPath()%>/delete-admin" method="POST" onsubmit="return confirm('Are you sure you want to remove this admin ?');">
                     <input type="hidden" name="id" value="<%=admin.getID()%>" />
-                    <button type="submit" class="bg-red-600 hover:bg-red-700 px-3 py-1 rounded">Delete</button>
+                    <button type="submit" class="bg-red-600 hover:bg-red-700 px-3 py-1 rounded" <%=(admin.getID()==0)? "disabled":""%>>Delete</button>
                 </form>
 
                 </td>
