@@ -1,12 +1,16 @@
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.example.onlinefooddeliverysystem.models.Driver" %>
+<%@ page import="com.example.onlinefooddeliverysystem.services.DriverManager" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Driver Management</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-900 text-white min-h-screen">
+
 <nav class="flex justify-between items-center p-6 bg-gray-800">
     <!-- Title -->
     <div class="flex items-center">
@@ -14,11 +18,10 @@
     </div>
 
     <!-- Navigation Links -->
-    <div class="space-x-4">
-
+    <div class="flex items-center space-x-4">
         <a href="<%=request.getContextPath()%>/pages/driver/admin-view.jsp" class="text-white hover:text-blue-400">Driver Management</a>
         <a href="<%=request.getContextPath()%>/pages/user/admin-view.jsp" class="text-white hover:text-blue-400">User Management</a>
-        <a href="<%=request.getContextPath()%>/pages/food-item/AddFood.jsp" class="text-white hover:text-blue-400">Add Food Item</a>
+        <a href="<%=request.getContextPath()%>/pages/food-item/add-food.jsp" class="text-white hover:text-blue-400">Add Food Item</a>
         <a href="<%=request.getContextPath()%>/pages/food-item/admin-view.jsp" class="text-white hover:text-blue-400">View Food Items</a>
         <a href="<%=request.getContextPath()%>/pages/order/pending-order-admin.jsp" class="text-white hover:text-blue-400">Pending Orders</a>
         <a href="<%=request.getContextPath()%>/pages/order/confirmed-order-admin.jsp" class="text-white hover:text-blue-400">Confirmed Orders</a>
@@ -28,66 +31,80 @@
            class="ml-4 px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">
             Signup
         </a>
-        <a href="<%=request.getContextPath()%>/admin-logout"
-           class="ml-4 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">
-            Logout
-        </a>
-
+        <form action="<%=request.getContextPath()%>/admin-logout" method="POST" class="inline"
+              onsubmit="return confirm('Are you sure you want to logout ?');">
+            <input type="submit" value="Logout" class="ml-4 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 cursor-pointer">
+        </form>
     </div>
 </nav>
-<div class="max-w-4xl mx-auto py-10 px-4">
+
+<div class="max-w-6xl mx-auto">
     <h1 class="text-3xl font-bold mb-6 text-center">Driver Management</h1>
 
-    <!-- Add Driver Form -->
-    <form action="addDriver" method="POST" class="bg-gray-800 p-6 rounded-lg mb-10 shadow-md space-y-4">
-        <h2 class="text-xl font-semibold mb-2">Add New Driver</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <input type="text" name="name" placeholder="Name" required
-                   class="p-3 rounded-md bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <input type="number" name="age" placeholder="Age" required
-                   class="p-3 rounded-md bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <button type="submit"
-                    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-md transition duration-300">
-                Add Driver
-            </button>
-        </div>
-    </form>
+        <%
+        ArrayList<Driver> drivers = DriverManager.getDrivers();
+        %>
 
-    <!-- Driver Table -->
+    <!-- Styled Driver Registration Form -->
+    <div class="bg-gray-800 p-6 rounded-lg shadow-md mb-10">
+        <h2 class="text-2xl font-semibold mb-4">Register New Driver</h2>
+        <form action="<%=request.getContextPath()%>/register-driver" method="post" class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-end">
+            <div>
+                <label for="name" class="block mb-1 text-sm font-medium">Name</label>
+                <input type="text" name="name" id="name" required
+                       class="w-full p-2 bg-gray-700 border border-gray-600 rounded text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div>
+                <label for="age" class="block mb-1 text-sm font-medium">Age</label>
+                <input type="number" name="age" id="age" required
+                       class="w-full p-2 bg-gray-700 border border-gray-600 rounded text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div>
+                <button type="submit"
+                        class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded transition duration-200">
+                    Register
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- drivers Table -->
     <div class="overflow-x-auto">
-        <table class="min-w-full table-auto bg-gray-800 rounded-lg overflow-hidden">
+        <table class="min-w-full table-auto bg-gray-800 rounded-lg overflow-hidden shadow">
             <thead class="bg-gray-700 text-white">
             <tr>
                 <th class="p-4 text-left">ID</th>
                 <th class="p-4 text-left">Name</th>
                 <th class="p-4 text-left">Age</th>
-                <th class="p-4 text-left">Actions</th>
+                <th class="p-4 text-left" colspan="2">Actions</th>
             </tr>
             </thead>
-            <tbody id="driverTable" class="text-gray-300">
-            <!-- Example static row -->
-            <tr class="border-b border-gray-700">
-                <td class="p-4">1</td>
-                <td class="p-4">John Doe</td>
-                <td class="p-4">30</td>
-                <td class="p-4 flex space-x-2">
-                    <form action="editDriver.jsp" method="GET">
-                        <input type="hidden" name="id" value="1">
-                        <button type="submit"
-                                class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-md">Edit</button>
+            <tbody class="text-gray-300">
+            <% for (Driver driver: drivers) { %>
+                <tr class="border-b border-gray-700">
+                    <td>
+                        <%=driver.getID()%>
+                    </td>
+
+                    <form action="<%=request.getContextPath()%>/update-driver" method="POST">
+                        <input type="hidden" name="id" value="<%=driver.getID()%>" />
+                        <td class="p-2"><input name="name" value="<%=driver.getName()%>" class="bg-gray-700 p-1 rounded text-white w-full"/></td>
+                        <td class="p-2"><input name="age" type="number" value="<%=driver.getAge()%>" class="bg-gray-700 p-1 rounded text-white w-full"/></td>
+                        <td class="p-2 flex gap-2">
+                            <button type="submit" class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded">Update</button>
+                        </td>
                     </form>
-                    <form action="deleteDriver" method="POST" onsubmit="return confirm('Are you sure?')">
-                        <input type="hidden" name="id" value="1">
-                        <button type="submit"
-                                class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md">Delete</button>
-                    </form>
-                </td>
-            </tr>
-            <!-- Repeat this row dynamically using JSP or JS -->
+
+                    <td>
+                        <form action="<%=request.getContextPath()%>/delete-driver" method="POST" onsubmit="return confirm('Are you sure?');">
+                            <input type="hidden" name="id" value="<%=driver.getID()%>" />
+                            <button type="submit" class="bg-red-600 hover:bg-red-700 px-3 py-1 rounded">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <% } %>
             </tbody>
         </table>
     </div>
-</div>
-
 </body>
 </html>

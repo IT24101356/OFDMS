@@ -18,6 +18,6 @@ public class RegisterAdmin extends HttpServlet {
 
         AdminManager.addAdmin(ID,name,age,email,password);
 
-        response.sendRedirect("Pages/Admin/admin-admin-admin-view.jsp");
+        response.sendRedirect("pages/admin/admin-view.jsp");
     }
 }

@@ -20,6 +20,6 @@ public class addFood extends HttpServlet {
 
         FoodManager.add(FoodManager.getNextID(), name,description,price,category,imagePath);
 
-        response.sendRedirect("pages/food-item/admin-admin-admin-admin-view.jsp");
+        response.sendRedirect("pages/food-item/admin-view.jsp");
     }
 }

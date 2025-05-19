@@ -5,10 +5,11 @@ import com.example.onlinefooddeliverysystem.services.DriverManager;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(name = "DriverServlet", value = "/register-driver")
+@WebServlet(name = "DriverRegisterServlet", value = "/register-driver")
 public class DriverRegister extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        DriverManager.readDrivers();
 
         String name = request.getParameter("name");
         int age = Integer.parseInt(request.getParameter("age"));
@@ -16,6 +17,6 @@ public class DriverRegister extends HttpServlet {
 
         DriverManager.add(name,age);
 
-        response.sendRedirect("Pages/Driver/admin-admin-admin-view.jsp");
+        response.sendRedirect("pages/driver/admin-view.jsp");
     }
 }

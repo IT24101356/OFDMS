@@ -75,4 +75,8 @@ public class DriverManager {
     public static int getNextID() {
         return ++driverID;
     }
+
+    public static ArrayList<Driver> getDrivers() {
+        return drivers;
+    }
 }

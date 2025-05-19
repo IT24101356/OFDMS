@@ -22,6 +22,6 @@ public class Remove extends HttpServlet {
         UserManager.deleteUser(userId);
 
         // Redirect to a confirmation or user list page
-        response.sendRedirect("Pages/User/deleted.jsp");
+        response.sendRedirect("pages/user/admin-view.jsp");
     }
 }

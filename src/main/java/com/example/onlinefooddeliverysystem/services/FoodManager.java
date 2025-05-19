@@ -13,7 +13,6 @@ public class FoodManager {
             return;
 
         foodItems = new ArrayList<>();
-        // foodItems.add(new Food(0, "Burger", "Burger",500,"Main")); // Default item
 
         String[] foodDataArr = fileHandler.readFromFile(fileName);
         int lastID = 0;

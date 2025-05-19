@@ -6,6 +6,7 @@
 <%@ page import="com.example.onlinefooddeliverysystem.models.User" %>
 <%@ page import="com.example.onlinefooddeliverysystem.services.UserManager" %>
 <%
+    FoodManager.readFoodItems();
     int foodID = Integer.parseInt(request.getParameter("foodID"));
     Food food = FoodManager.find(foodID);
     ReviewManager.readReviews(); // Make sure reviews are loaded
@@ -62,9 +63,7 @@
             <p class="text-lg text-green-400 font-semibold mb-4">Price: Rs. <%= food.getPrice() %></p>
 
             <form action="<%=request.getContextPath()%>/pages/order/order-food.jsp" method="GET">
-                <input type="hidden" name="foodId" value="<%= food.getID() %>"/>
-                <input type="hidden" name="foodName" value="<%= food.getName() %>"/>
-                <input type="hidden" name="price" value="<%= food.getPrice() %>"/>
+                <input type="hidden" name="foodID" value="<%= food.getID() %>"/>
                 <button type="submit" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-md text-white">
                     Order Now
                 </button>
