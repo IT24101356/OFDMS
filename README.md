@@ -40,12 +40,12 @@ Make your changes, commit them, and push them to your fork.
 Open a pull request to the main branch.
 
 ## Contributors
-- Vidanagamage.M.S.D - Group Leader & Repository Manager
-- [Collaborator 1 Name] - 
-- [Collaborator 2 Name] - 
-- [Collaborator 3 Name] - 
-- [Collaborator 4 Name] - 
-- [Collaborator 5 Name] - 
+- Vidanagamage.M.S.D - IT24101356
+- Abeyweera.G.I.J-IT24100524
+- Hettigedara.N.M.T.U-IT24101356
+- Bandaranayaka.V.P.D - IT24104241
+- Ihalagedara.I.D.T.K - IT24104184
+- Hazzaz.M.M - IT24100739
 
 License:
 This project is licensed under the MIT License.
