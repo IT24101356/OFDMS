@@ -1,12 +1,12 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.example.onlinefooddeliverysystem.models.Admin" %>
-<%@ page import="com.example.onlinefooddeliverysystem.services.AdminManager" %>
+<%@ page import="com.example.onlinefooddeliverysystem.models.User" %>
+<%@ page import="com.example.onlinefooddeliverysystem.services.UserManager" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Admin Management</title>
+    <title>User Management</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-900 text-white min-h-screen">
@@ -39,11 +39,12 @@
 </nav>
 
 <div class="max-w-6xl mx-auto">
-    <h1 class="text-3xl font-bold mb-6 text-center">Admin Management</h1>
+    <h1 class="text-3xl font-bold mb-6 text-center">User Management</h1>
 
         <%
-        ArrayList<Admin> admins = AdminManager.getAdmins();
-    %>
+        UserManager.readUsers();
+        ArrayList<User> users = UserManager.getUsers();
+        %>
 
     <!-- Admins Table -->
     <div class="overflow-x-auto">
@@ -54,37 +55,31 @@
                 <th class="p-4 text-left">Name</th>
                 <th class="p-4 text-left">Age</th>
                 <th class="p-4 text-left">Email</th>
+                <th class="p-4 text-left">Password</th>
                 <th class="p-4 text-left">Actions</th>
             </tr>
             </thead>
             <tbody class="text-gray-300">
-            <% for (Admin admin: admins) { %>
+            <% for (User user: users) { %>
 
-            <!-- Sample admin row — repeat with backend data -->
-            <tr class="border-b border-gray-700">
+                <tr class="border-b border-gray-700">
 
-                <form action="<%=request.getContextPath()%>/update-admin" method="POST">
-                    <td class="p-2">
-                        <input type="hidden" name="id" value="<%=admin.getID()%>" />
-                        <%=admin.getID()%>
+                    <td class="p-2"><p class="bg-gray-700 p-1 rounded text-white w-full"><%=user.getID()%></p></td>
+                    <td class="p-2"><p class="bg-gray-700 p-1 rounded text-white w-full"><%=user.getName()%></p></td>
+                    <td class="p-2"><p class="bg-gray-700 p-1 rounded text-white w-full"><%=user.getAge()%></p></td>
+                    <td class="p-2"><p class="bg-gray-700 p-1 rounded text-white w-full"><%=user.getMail()%></p></td>
+                    <td class="p-2"><p class="bg-gray-700 p-1 rounded text-white w-full"><%=user.getPassword()%></p></td>
+
+                    <td>
+                        <form action="<%=request.getContextPath()%>/delete-user" method="POST" onsubmit="return confirm('Are you sure you want to remove this user ?');">
+                            <input type="hidden" name="id" value="<%=user.getID()%>" />
+                            <button type="submit" class="bg-red-600 hover:bg-red-700 px-3 py-1 rounded"  <%=(user.getID()==0)? "disabled":""%>>Delete</button>
+                        </form>
                     </td>
-                    <td class="p-2"><input name="name" value="<%=admin.getName()%>" class="bg-gray-700 p-1 rounded text-white w-full" <%=(admin.getID()==0)? "readonly":""%>/></td>
-                    <td class="p-2"><input name="age" type="number" value="<%=admin.getAge()%>" class="bg-gray-700 p-1 rounded text-white w-full" <%=(admin.getID()==0)? "readonly":""%>/></td>
-                    <td class="p-2"><input name="mail" value="<%=admin.getMail()%>" class="bg-gray-700 p-1 rounded text-white w-full" <%=(admin.getID()==0)? "readonly":""%>/></td>
-                    <td class="p-2 flex gap-2">
-                        <input name="password" type="hidden" value="<%=admin.getPassword()%>" />
-                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded" <%=(admin.getID()==0)? "disabled":""%>>Update</button>
-                </form>
+                </tr>
 
-                <form action="<%=request.getContextPath()%>/delete-admin" method="POST" onsubmit="return confirm('Are you sure you want to remove this admin ?');">
-                    <input type="hidden" name="id" value="<%=admin.getID()%>" />
-                    <button type="submit" class="bg-red-600 hover:bg-red-700 px-3 py-1 rounded" <%=(admin.getID()==0)? "disabled":""%>>Delete</button>
-                </form>
-
-                </td>
-
-            </tr>
             <% } %>
+
             </tbody>
         </table>
     </div>

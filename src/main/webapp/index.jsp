@@ -1,12 +1,14 @@
-<%@ page import="com.example.onlinefooddeliverysystem.services.AdminManager" %>
-<%@ page import="com.example.onlinefooddeliverysystem.services.FoodManager" %>
-<%@ page import="com.example.onlinefooddeliverysystem.services.ReviewManager" %>
+<%@ page import="com.example.onlinefooddeliverysystem.models.User" %>
+<%@ page import="com.example.onlinefooddeliverysystem.services.*" %>
 <!DOCTYPE html>
 <html lang="en">
 <%
     AdminManager.readAdmins();
     FoodManager.readFoodItems();
     ReviewManager.readReviews();
+    DriverManager.readDrivers();
+    UserManager.readUsers();
+    OrderManager.readOrders();
 %>
 <head>
     <meta charset="UTF-8">

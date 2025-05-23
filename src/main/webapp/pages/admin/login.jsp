@@ -18,14 +18,9 @@
 
     <!-- Navigation Links -->
     <div class="space-x-4">
-
-        <a href="<%=request.getContextPath()%>/pages/food-item/user-view.jsp"
-           class="ml-4 px-4 py-2 bg-green-500 text-white rounded-md hover:bg-red-600">
-            Sign Up
-        </a>
-        <a href="<%=request.getContextPath()%>/pages/admin/register.jsp"
-           class="ml-4 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">
-            Logout
+        <a href="<%=request.getContextPath()%>/index.jsp"
+           class="ml-4 px-4 py-2  text-white rounded-md bg-green-500 hover:bg-green-700">
+            Home
         </a>
     </div>
 </nav>

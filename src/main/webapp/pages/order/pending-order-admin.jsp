@@ -1,12 +1,14 @@
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="com.example.onlinefooddeliverysystem.models.Admin" %>
-<%@ page import="com.example.onlinefooddeliverysystem.services.AdminManager" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %>
+<%@ page import="com.example.onlinefooddeliverysystem.services.OrderManager" %>
+<%@ page import="com.example.onlinefooddeliverysystem.models.Order" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Admin Management</title>
+    <title>Pending Orders</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-900 text-white min-h-screen">
@@ -38,55 +40,65 @@
     </div>
 </nav>
 
-<div class="max-w-6xl mx-auto">
-    <h1 class="text-3xl font-bold mb-6 text-center">Admin Management</h1>
 
-        <%
-        ArrayList<Admin> admins = AdminManager.getAdmins();
-    %>
+<div class="max-w-6xl mx-auto py-10 px-4">
+    <h1 class="text-3xl font-bold mb-6 text-center">Pending Orders</h1>
 
-    <!-- Admins Table -->
+    <!-- Orders Table -->
     <div class="overflow-x-auto">
-        <table class="min-w-full table-auto bg-gray-800 rounded-lg overflow-hidden shadow">
+        <table class="min-w-full table-auto bg-gray-800 rounded-lg overflow-hidden">
             <thead class="bg-gray-700 text-white">
             <tr>
                 <th class="p-4 text-left">ID</th>
-                <th class="p-4 text-left">Name</th>
-                <th class="p-4 text-left">Age</th>
-                <th class="p-4 text-left">Email</th>
+                <th class="p-4 text-left">Order Name</th>
+                <th class="p-4 text-left">User ID</th>
+                <th class="p-4 text-left">Food ID</th>
+                <th class="p-4 text-left">Quantity</th>
+                <th class="p-4 text-left">Price (Rs.)</th>
                 <th class="p-4 text-left">Actions</th>
             </tr>
             </thead>
             <tbody class="text-gray-300">
-            <% for (Admin admin: admins) { %>
-
-            <!-- Sample admin row — repeat with backend data -->
+            <%
+                OrderManager.readOrders();
+                List<Order> orderList = OrderManager.getOrders();
+                if (orderList != null) {
+                    for (Order order : orderList) {
+                        if (order.getStatus().equalsIgnoreCase("pending")) {
+            %>
             <tr class="border-b border-gray-700">
-
-                <form action="<%=request.getContextPath()%>/update-admin" method="POST">
-                    <td class="p-2">
-                        <input type="hidden" name="id" value="<%=admin.getID()%>" />
-                        <%=admin.getID()%>
-                    </td>
-                    <td class="p-2"><input name="name" value="<%=admin.getName()%>" class="bg-gray-700 p-1 rounded text-white w-full" <%=(admin.getID()==0)? "readonly":""%>/></td>
-                    <td class="p-2"><input name="age" type="number" value="<%=admin.getAge()%>" class="bg-gray-700 p-1 rounded text-white w-full" <%=(admin.getID()==0)? "readonly":""%>/></td>
-                    <td class="p-2"><input name="mail" value="<%=admin.getMail()%>" class="bg-gray-700 p-1 rounded text-white w-full" <%=(admin.getID()==0)? "readonly":""%>/></td>
-                    <td class="p-2 flex gap-2">
-                        <input name="password" type="hidden" value="<%=admin.getPassword()%>" />
-                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded" <%=(admin.getID()==0)? "disabled":""%>>Update</button>
-                </form>
-
-                <form action="<%=request.getContextPath()%>/delete-admin" method="POST" onsubmit="return confirm('Are you sure you want to remove this admin ?');">
-                    <input type="hidden" name="id" value="<%=admin.getID()%>" />
-                    <button type="submit" class="bg-red-600 hover:bg-red-700 px-3 py-1 rounded" <%=(admin.getID()==0)? "disabled":""%>>Delete</button>
-                </form>
-
+                <td class="p-4"><%= order.getId() %></td>
+                <td class="p-4"><%= order.getOrderName() %></td>
+                <td class="p-4"><%= order.getUserId() %></td>
+                <td class="p-4"><%= order.getFoodId() %></td>
+                <td class="p-4"><%= order.getQuantity() %></td>
+                <td class="p-4"><%= order.getTotalPrice() %></td>
+                <td class="p-4">
+                    <form action="<%=request.getContextPath()%>/confirm-order" method="POST" onsubmit="return confirm('Confirm this order?')">
+                        <input type="hidden" name="orderId" value="<%= order.getId() %>">
+                        <button type="submit"
+                                class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md" <%=(OrderManager.getOrdersQueue().peekFront().getId() != order.getId()) ? "disabled" : ""%>>
+                            Confirm Order
+                        </button>
+                    </form>
                 </td>
-
             </tr>
-            <% } %>
+            <%
+                } }
+            } else {
+            %>
+            <tr>
+                <td colspan="7" class="p-4 text-center text-gray-400">No orders found.</td>
+            </tr>
+            <%
+                }
+            %>
             </tbody>
         </table>
     </div>
+</div>
+
 </body>
 </html>
+
+
