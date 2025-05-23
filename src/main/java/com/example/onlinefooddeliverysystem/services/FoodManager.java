@@ -20,29 +20,29 @@ public class FoodManager {
         for (String foodData : foodDataArr) {
             String[] item = foodData.split(",");
             lastID = Integer.parseInt(item[0]);
-            String description = item[1];
-            String name = item[2];
+            String name = item[1];
+            String description = item[2];
             double price = Double.parseDouble(item[3]);
             String category = item[4];
             String imagePath = item[5];
 
-            foodItems.add(new Food(lastID, description , name,price,category, imagePath));
+            foodItems.add(new Food(lastID ,name ,description, price, category, imagePath));
         }
 
         foodID = lastID;
     }
 
-    public static void add(int id, String description,String name, double price,String category, String imagePath) {
-        Food food = new Food(id,description,name,price,category, imagePath);
+    public static void add(int id, String name, String description, double price,String category, String imagePath) {
+        Food food = new Food(id, name ,description,price,category, imagePath);
         foodItems.add(food);
         fileHandler.writeToFile(fileName, true, food.getDetails());
     }
 
-    public static void update(int id, String description,String name,double price,String category, String imagePath) {
+    public static void update(int id, String name, String description, double price,String category, String imagePath) {
         Food food = find(id);
         if (food != null) {
-            food.setDescription(description);
             food.setName(name);
+            food.setDescription(description);
             food.setPrice(price);
             food.setCategory(category);
             food.setImagePath(imagePath);

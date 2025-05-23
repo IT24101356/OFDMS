@@ -11,11 +11,11 @@ public class DeleteReview extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 
-        int id=Integer.parseInt(request.getParameter("id"));
+        int id=Integer.parseInt(request.getParameter("reviewId"));
 
 
         ReviewManager.delete(id);
 
-        response.sendRedirect("Pages/Review/admin-admin-admin-admin-view.jsp");
+        response.sendRedirect("pages/review/admin-view.jsp");
     }
 }
