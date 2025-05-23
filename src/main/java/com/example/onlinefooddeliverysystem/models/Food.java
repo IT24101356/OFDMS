@@ -3,14 +3,14 @@ package com.example.onlinefooddeliverysystem.models;
 public class Food {
     //    intializing the attributes
     private int ID;
-    private String Description;
     private String name;
+    private String Description;
     private double price;
     private String Category;
     private String imagePath;
 
 //    constructer
-    public Food(int ID, String description, String name, double price, String category, String imagePath) {
+    public Food(int ID, String name, String description,  double price, String category, String imagePath) {
         this.ID = ID;
         this.Description = description;
         this.name = name;

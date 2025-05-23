@@ -36,7 +36,7 @@ public class Login extends HttpServlet {
         if (loggedUser != null) {
             HttpSession session = request.getSession();
             session.setAttribute("loggedUser", loggedUser);
-            response.sendRedirect("pages/food-item/user-view.jsp");
+            response.sendRedirect("food-view");
         }
         else{
             response.sendRedirect("pages/user/login.jsp");
